@@ -4,43 +4,66 @@ using UnityEngine;
 
 public class PlayerMovement : MonoBehaviour
 {
-    public float walkSpeed = 3f;
-    public float runSpeed = 6f;
+    public float walkSpeed = 5f;
+    public float sprintSpeed = 10f;
+    public float jumpForce = 5f;
 
-    private bool isSprinting;
+    public CharacterController characterController;
+    private bool isSprinting = false;
+    //end ChatGPT
 
-    Rigidbody rb;
+    public Transform groundCheck;
+    public float groundDistance = 0.4f;
+    public LayerMask groundMask;
 
-    // Start is called before the first frame update
-    void Start()
+    [SerializeField] private bool isGrounded;
+    private Vector3 velocity;
+
+    public GameObject gameOverUI;
+
+    private void Start()
     {
-        rb = GetComponent<Rigidbody>();
+        characterController = GetComponent<CharacterController>();
     }
 
-    // Update is called once per frame
-    void Update()
+    private void Update()
     {
-        float speed = walkSpeed;
+        isGrounded = IsGrounded();
 
-        if (isSprinting)
-        {
-            speed = runSpeed;
-        }
 
-        float xMove = Input.GetAxisRaw("Horizontal");
-        float zMove = Input.GetAxisRaw("Vertical");
+        //ChatGPT
+        float moveSpeed = isSprinting ? sprintSpeed : walkSpeed;
+        float horizontalInput = Input.GetAxis("Horizontal");
+        float verticalInput = Input.GetAxis("Vertical");
+        Vector3 moveDirection = transform.forward * verticalInput + transform.right * horizontalInput;
 
-        rb.velocity = new Vector3(xMove, rb.velocity.y, zMove) * speed;
+        characterController.Move(moveDirection * moveSpeed * Time.deltaTime);
+        //end ChatGPT
+
+        velocity.y += Physics.gravity.y * Time.deltaTime;
+
+
+
+        characterController.Move(velocity * Time.deltaTime);
 
         if (Input.GetKeyDown(KeyCode.LeftShift))
         {
             isSprinting = true;
         }
-        else if (Input.GetKeyUp(KeyCode.LeftShift))
+        if (Input.GetKeyUp(KeyCode.LeftShift))
         {
             isSprinting = false;
         }
-           
+    }
 
+    private bool IsGrounded()
+    {
+        return Physics.Raycast(transform.position - new Vector3(0, 1f, 0), Vector3.down, 0.6f, groundMask);
+    }
+
+    private void OnDrawGizmos()
+    {
+        Gizmos.color = Color.red;
+        Gizmos.DrawLine(transform.position - new Vector3(0, 1f, 0), transform.position - new Vector3(0, 1f, 0) + Vector3.down * 0.6f);
     }
 }
