@@ -45,8 +45,12 @@ public class Pickup : MonoBehaviour
     {
         if(other.gameObject.tag == "Pickup")
         {
-            canPickup = true;
-            ObjectIWantToPickup = other.gameObject;
+            if(hasItem == false)
+            {
+                canPickup = true;
+                ObjectIWantToPickup = other.gameObject;
+            }
+           
         }
 
     }
