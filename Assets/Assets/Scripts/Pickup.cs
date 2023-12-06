@@ -10,6 +10,9 @@ public class Pickup : MonoBehaviour
     public GameObject ObjectIWantToPickup;
     public bool hasItem;
 
+    public float throwForce = 600;
+    Vector3 objectPos;
+    public float distance;
 
     // Start is called before the first frame update
     void Start()
@@ -36,6 +39,7 @@ public class Pickup : MonoBehaviour
         {
             ObjectIWantToPickup.GetComponent<Rigidbody>().isKinematic = false;
             ObjectIWantToPickup.transform.parent = null;
+            ObjectIWantToPickup.GetComponent<Rigidbody>().AddForce(myHands.transform.forward * throwForce);
             hasItem = false;
         }
 
