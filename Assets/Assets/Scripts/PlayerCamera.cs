@@ -36,11 +36,10 @@ public class PlayerCamera : MonoBehaviour
         float mouseX = Input.GetAxis("Mouse X") * mouseSensitivity * Time.deltaTime;
         float mouseY = Input.GetAxis("Mouse Y") * mouseSensitivity * Time.deltaTime;
 
-        //ChatGPT
         playerBody.Rotate(Vector3.up * mouseX);
 
         xRotation -= mouseY;
-        xRotation = Mathf.Clamp(xRotation, -90f, 90f);
+        xRotation = Mathf.Clamp(xRotation, -15f, 15f);
         transform.localRotation = Quaternion.Euler(xRotation, 0f, 0f);
     }
 
@@ -54,5 +53,4 @@ public class PlayerCamera : MonoBehaviour
             yield return null;
         }
     }
-    //end ChatGPT
 }
