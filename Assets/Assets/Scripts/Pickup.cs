@@ -32,6 +32,7 @@ public class Pickup : MonoBehaviour
                 ObjectIWantToPickup.transform.position = myHands.transform.position;
                 ObjectIWantToPickup.transform.parent = myHands.transform;
                 hasItem = true;
+                //play the animals fly animation
             }
 
         }
