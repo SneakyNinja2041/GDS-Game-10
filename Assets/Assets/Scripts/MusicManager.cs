@@ -12,7 +12,6 @@ public class MusicManager : MonoBehaviour
     public AudioClip forestAudio;
     public AudioClip waterAudio;
 
-
     void OnTriggerEnter(Collider other)
     {
         if (other.gameObject.tag == "Desert")
@@ -42,8 +41,6 @@ public class MusicManager : MonoBehaviour
             playerAudioSource.clip = forestAudio;
             playerAudioSource.Play();
         }
-        
-
 
     }
 
