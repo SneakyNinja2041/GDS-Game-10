@@ -9,6 +9,9 @@ TagManager:
   - City
   - Water
   - Forest
+  - ForestPickup
+  - AquaticPickup
+  - DesertPickup
   layers:
   - Default
   - TransparentFX
