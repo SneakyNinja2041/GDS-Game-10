@@ -4,7 +4,6 @@ using UnityEngine;
 
 public class JetpackC : MonoBehaviour
 {
-
     public Transform PlatformTransform;
     public Transform PlayerTransform;
     public GameObject Platform;
@@ -20,14 +19,14 @@ public class JetpackC : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        if (Input.GetKey("j"))
+        if (Input.GetKey("J"))
         {
-            StartCoroutine(JetpackUp());
+            JetpackUp(); // Start coroutine directly
         }
 
-        if (Input.GetKeyUp("j"))
+        if (Input.GetKeyUp("J"))
         {
-            StartCoroutine(StopJetpack());
+            StopJetpack(); // Start coroutine directly
         }
     }
 
@@ -35,19 +34,17 @@ public class JetpackC : MonoBehaviour
     {
         isRising = true;
         Platform.transform.SetParent(PlatformTransform);
-        PlatformTransform.GetComponent<Animator>().Play("Jetpack");
         Platform.SetActive(true);
-        yield return new WaitForSeconds(0f);
+        yield return null; // Add this line
     }
 
     IEnumerator StopJetpack()
     {
         isRising = false;
-        PlatformTransform.GetComponent<Animator>().Play("New State");
         Platform.transform.SetParent(PlayerTransform);
-        yield return new WaitForSeconds(0.1f);
+        yield return new WaitForSeconds(0.1f); // Add this line
         Platform.SetActive(false);
         PlatformTransform.DetachChildren();
-        yield return new WaitForSeconds(0f);
+        yield return null; // Add this line
     }
 }
