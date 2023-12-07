@@ -19,12 +19,12 @@ public class JetpackC : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        if (Input.GetKey("J"))
+        if (Input.GetKeyDown(KeyCode.J))
         {
             JetpackUp(); // Start coroutine directly
         }
 
-        if (Input.GetKeyUp("J"))
+        if (Input.GetKeyUp(KeyCode.J))
         {
             StopJetpack(); // Start coroutine directly
         }

@@ -30,21 +30,14 @@ public class PlayerMovement : MonoBehaviour
     {
         isGrounded = IsGrounded();
 
-
-        //ChatGPT
         float moveSpeed = isSprinting ? sprintSpeed : walkSpeed;
         float horizontalInput = Input.GetAxis("Horizontal");
         float verticalInput = Input.GetAxis("Vertical");
         Vector3 moveDirection = transform.forward * verticalInput + transform.right * horizontalInput;
 
         characterController.Move(moveDirection * moveSpeed * Time.deltaTime);
-        //end ChatGPT
 
         velocity.y += Physics.gravity.y * Time.deltaTime;
-
-
-
-        characterController.Move(velocity * Time.deltaTime);
 
         if (Input.GetKeyDown(KeyCode.LeftShift))
         {
@@ -54,6 +47,24 @@ public class PlayerMovement : MonoBehaviour
         {
             isSprinting = false;
         }
+
+        if (Input.GetButtonDown("Jump") && isGrounded)
+        {
+            velocity.y = jumpForce;
+        }
+
+        // Continuous upward movement when spacebar is held
+        if (Input.GetKey(KeyCode.Space))
+        {
+            velocity.y = jumpForce;
+        }
+        // Gradual decrease in upward velocity when spacebar is released
+        else if (!Input.GetKey(KeyCode.Space) && !isGrounded)
+        {
+            velocity.y = Mathf.MoveTowards(velocity.y, Physics.gravity.y, Time.deltaTime);
+        }
+
+        characterController.Move(velocity * Time.deltaTime);
     }
 
     private bool IsGrounded()
