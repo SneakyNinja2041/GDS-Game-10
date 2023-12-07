@@ -10,7 +10,7 @@ public class AnimalTracker : MonoBehaviour
 
     public GameObject addedAnimal;
 
-    private void OnTriggerEnter(Collider other)
+    private void OnTriggerStay(Collider other)
     {
          if(other.gameObject.tag == "Pickup")
          {

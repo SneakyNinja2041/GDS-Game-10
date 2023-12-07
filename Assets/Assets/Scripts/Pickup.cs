@@ -6,6 +6,8 @@ public class Pickup : MonoBehaviour
 {
     public GameObject myHands;
 
+    public AudioSource audioSource;
+
     public bool canPickup;
     public GameObject ObjectIWantToPickup;
     public bool hasItem;
@@ -41,6 +43,7 @@ public class Pickup : MonoBehaviour
             ObjectIWantToPickup.GetComponent<Rigidbody>().isKinematic = false;
             ObjectIWantToPickup.transform.parent = null;
             ObjectIWantToPickup.GetComponent<Rigidbody>().AddForce(myHands.transform.forward * throwForce);
+            audioSource.Play();
             hasItem = false;
         }
 
