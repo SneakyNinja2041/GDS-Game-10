@@ -6,7 +6,8 @@ public class Pickup : MonoBehaviour
 {
     public GameObject myHands;
 
-    public AudioSource audioSource;
+    public AudioSource throwAudio;
+    public AudioSource pickupAudio;
 
     public bool canPickup;
     public GameObject ObjectIWantToPickup;
@@ -34,6 +35,7 @@ public class Pickup : MonoBehaviour
                 ObjectIWantToPickup.transform.position = myHands.transform.position;
                 ObjectIWantToPickup.transform.parent = myHands.transform;
                 hasItem = true;
+                pickupAudio.Play();
                 //play the animals fly animation
             }
 
@@ -43,7 +45,7 @@ public class Pickup : MonoBehaviour
             ObjectIWantToPickup.GetComponent<Rigidbody>().isKinematic = false;
             ObjectIWantToPickup.transform.parent = null;
             ObjectIWantToPickup.GetComponent<Rigidbody>().AddForce(myHands.transform.forward * throwForce);
-            audioSource.Play();
+            throwAudio.Play();
             hasItem = false;
         }
 
